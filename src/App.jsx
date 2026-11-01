@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import phonesWide from './assets/phones-wide.png'
-import phonesCompact from './assets/phones-compact.png'
+import phonesImage from './assets/phones-transparent.png'
 import formulaImage from './assets/formula.png'
 import diapersImage from './assets/diapers.png'
 import groceriesImage from './assets/groceries.png'
@@ -206,12 +205,11 @@ function App() {
 
           <div className="hero-visual" aria-label="Preview of the ALBi mobile app">
             <picture>
-              <source media="(max-width: 699px)" srcSet={phonesCompact} />
               <img
-                src={phonesWide}
+                src={phonesImage}
                 alt="Three ALBi app screens showing the community feed, a wish, and the inbox"
-                width="690"
-                height="520"
+                width="1445"
+                height="1088"
               />
             </picture>
             <div className="carousel-dots" aria-hidden="true">
