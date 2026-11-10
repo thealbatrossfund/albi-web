@@ -5,6 +5,9 @@ import diapersImage from './assets/diapers.png'
 import groceriesImage from './assets/groceries.png'
 import schoolSuppliesImage from './assets/school-supplies.png'
 import petFoodImage from './assets/pet-food.png'
+import heroMascot from './assets/mascots/albi_hero.png'
+import howMascot from './assets/mascots/albi_howitworks.png'
+import faqMascot from './assets/mascots/albi_faqs.png'
 
 const navItems = [
   { label: 'How It Works', href: '#how-it-works' },
@@ -85,8 +88,10 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
   const [openFaq, setOpenFaq] = useState(null)
+  const [activeStep, setActiveStep] = useState(0)
   const animationRef = useRef(null)
   const menuButtonRef = useRef(null)
+  const stepCarouselRef = useRef(null)
 
   const stopScrollAnimation = () => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current)
@@ -198,6 +203,51 @@ function App() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [menuOpen])
 
+  const getStepScrollLeft = (carousel, card) => (
+    carousel.scrollLeft + card.getBoundingClientRect().left - carousel.getBoundingClientRect().left
+  )
+
+  const scrollToStep = (index) => {
+    const carousel = stepCarouselRef.current
+    const safeIndex = Math.min(howSteps.length - 1, Math.max(0, index))
+    const card = carousel?.children[safeIndex]
+    if (!carousel || !card) return
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+    setActiveStep(safeIndex)
+    carousel.scrollTo({ left: getStepScrollLeft(carousel, card), behavior })
+  }
+
+  const updateActiveStep = () => {
+    const carousel = stepCarouselRef.current
+    if (!carousel) return
+    const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2
+    const cards = Array.from(carousel.children)
+    const closestIndex = cards.reduce((bestIndex, card, index) => {
+      const cardCenter = getStepScrollLeft(carousel, card) + card.offsetWidth / 2
+      const bestCard = cards[bestIndex]
+      const bestCenter = getStepScrollLeft(carousel, bestCard) + bestCard.offsetWidth / 2
+      return Math.abs(cardCenter - carouselCenter) < Math.abs(bestCenter - carouselCenter) ? index : bestIndex
+    }, 0)
+    setActiveStep(closestIndex)
+  }
+
+  const handleStepKeyDown = (event) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+    event.preventDefault()
+    const direction = event.key === 'ArrowRight' ? 1 : -1
+    scrollToStep(Math.min(howSteps.length - 1, Math.max(0, activeStep + direction)))
+  }
+
+  useEffect(() => {
+    const alignActiveCard = () => {
+      const carousel = stepCarouselRef.current
+      const card = carousel?.children[activeStep]
+      if (window.innerWidth <= 699 && carousel && card) carousel.scrollTo({ left: getStepScrollLeft(carousel, card), behavior: 'auto' })
+    }
+    window.addEventListener('resize', alignActiveCard)
+    return () => window.removeEventListener('resize', alignActiveCard)
+  }, [activeStep])
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -215,6 +265,7 @@ function App() {
       <main id="main-content">
         <section className="landing" id="top" aria-labelledby="page-title">
           <section className="hero-layout">
+            <div className="hero-mascot" aria-hidden="true"><img src={heroMascot} alt="" width="1122" height="1402" /></div>
             <div className="hero-heading"><h1 id="page-title"><span>Wish for what you need.</span><span className="accent-text">Give what you can.</span></h1></div>
             <div className="hero-description"><p>ALBi connects real people with real needs. People post specific items like formula, diapers, groceries, school supplies, and pet supplies—and generous people help fulfill those wishes. Items are ordered and delivered directly, like from Amazon.</p></div>
             <div className="hero-actions" id="get-started"><a className="action-button action-primary" href="#categories"><span className="action-icon heart-icon"><HeartIcon /></span><span>Start Giving</span></a><a className="action-button action-secondary" href="#make-a-wish"><span className="action-icon plus-icon"><PlusIcon /></span><span>Make a Wish</span></a></div>
@@ -227,8 +278,9 @@ function App() {
           <SceneLayers type="how" />
           <div className="section-inner">
             <div className="section-heading split-heading" data-reveal><div className="section-title-block"><p className="eyebrow">How It Works</p><h2 id="how-title">Help starts with something real.</h2></div><div className="section-intro-copy"><p>Everyone needs a hand sometimes. And sometimes, helping someone is simpler than we think.</p><p>ALBi connects people who need everyday essentials with people who want to help. Whether it's baby formula, groceries, school supplies, or pet food, the idea is simple: make a specific wish, find someone willing to help, and turn a small act of generosity into something tangible.</p></div></div>
-            <ol className="story-grid step-grid">{howSteps.map((step, index) => <li className="story-card" data-reveal style={{ '--delay': `${index * 100}ms` }} key={step.title}><span className="card-icon"><StepIcon type={step.icon} /></span><span className="card-number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol>
-            <div className="section-closing" data-reveal><p>Because making a difference doesn't always require a grand gesture. Sometimes, it's as simple as showing up for someone.</p><div className="section-actions"><a className="action-button action-primary compact-action" href="#categories">Start Giving</a><a className="action-button action-secondary compact-action" href="#make-a-wish">Make a Wish</a></div></div>
+            <ol ref={stepCarouselRef} className="story-grid step-grid" aria-label="How ALBi works" tabIndex="0" onScroll={updateActiveStep} onKeyDown={handleStepKeyDown}>{howSteps.map((step, index) => <li className="story-card" data-reveal style={{ '--delay': `${index * 100}ms` }} key={step.title}>{index === 0 && <img className="how-mascot" src={howMascot} alt="" aria-hidden="true" width="1448" height="1086" />}<span className="card-icon"><StepIcon type={step.icon} /></span><span className="card-number">{step.number}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol>
+            <div className="step-carousel-controls" aria-label="How It Works carousel navigation"><button type="button" className="step-arrow" aria-label="Previous step" disabled={activeStep === 0} onClick={() => scrollToStep(activeStep - 1)}>‹</button><div className="step-dots">{howSteps.map((step, index) => <button type="button" key={step.title} className={activeStep === index ? 'is-active' : ''} aria-label={`Show step ${index + 1}: ${step.title}`} aria-current={activeStep === index ? 'step' : undefined} onClick={() => scrollToStep(index)} />)}</div><button type="button" className="step-arrow" aria-label="Next step" disabled={activeStep === howSteps.length - 1} onClick={() => scrollToStep(activeStep + 1)}>›</button></div>
+            <div className="section-closing how-closing" data-reveal><p>Because making a difference doesn't always require a grand gesture. Sometimes, it's as simple as showing up for someone.</p></div>
           </div>
         </section>
 
@@ -254,7 +306,7 @@ function App() {
         <section className="ocean-section faq-section" id="faqs" aria-labelledby="faq-title">
           <SceneLayers type="faq" />
           <div className="section-inner faq-inner">
-            <div className="section-heading" data-reveal><p className="eyebrow">FAQs</p><h2 id="faq-title">Questions? Let's talk about it.</h2><p>Whether you're here to lend a hand, ask for one, or explore a different perspective on what's happening in the world, here's a little more about ALBi.</p></div>
+            <div className="faq-copy" data-reveal><div className="section-heading"><p className="eyebrow">FAQs</p><h2 id="faq-title">Questions? Let's talk about it.</h2><p>Whether you're here to lend a hand, ask for one, or explore a different perspective on what's happening in the world, here's a little more about ALBi.</p></div><img className="faq-mascot" src={faqMascot} alt="" aria-hidden="true" width="1122" height="1402" /></div>
             <div className="faq-list" data-reveal>{faqs.map((faq, index) => {
               const isOpen = openFaq === index
               return <div className={`faq-item ${isOpen ? 'is-open' : ''}`} key={faq.question}><h3><button type="button" aria-expanded={isOpen} aria-controls={`faq-panel-${index}`} id={`faq-button-${index}`} onClick={() => setOpenFaq(isOpen ? null : index)}><span>{faq.question}</span><span className="faq-plus" aria-hidden="true" /></button></h3><div className="faq-panel" id={`faq-panel-${index}`} role="region" aria-labelledby={`faq-button-${index}`} aria-hidden={!isOpen}><div><p>{faq.answer}</p></div></div></div>
