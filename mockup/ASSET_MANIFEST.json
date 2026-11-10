@@ -1,0 +1,116 @@
+{
+  "format_version": 1,
+  "root": "mockup",
+  "files": [
+    {
+      "file": "CODEX_PROMPT.md",
+      "bytes": 33470,
+      "sha256": "7d4234fdfaf580c808d85354c4a2369060c6c57515036a3f031751a61cbee9b0"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2589,
+      "sha256": "004cdd4fe6e81a79c04920fcc8630d77b50c5a4a83db166fa87cf0c79d2882cb"
+    },
+    {
+      "file": "media/overlays/bubbles.svg",
+      "bytes": 5204,
+      "sha256": "d579270d5354893351a32e120405984dc89738dedec6ee5a6a4d711f5dd5f4fb"
+    },
+    {
+      "file": "media/overlays/light-rays.svg",
+      "bytes": 962,
+      "sha256": "d2aef46311353580b9122fc5062e8ab560a3e4a77cd425966edb02af33ce54a5"
+    },
+    {
+      "file": "media/overlays/seafloor-caustics.svg",
+      "bytes": 3439,
+      "sha256": "5ae6c3809c30a26b6a9a63f4de3005c75ce5c3d1c45fb1a40d70fe2408255627"
+    },
+    {
+      "file": "media/overlays/water-ripples.svg",
+      "bytes": 1496,
+      "sha256": "76981d507f23deeeb6df5e749a5127dd41cb1400311f7cd850034e5b445e3b3b"
+    },
+    {
+      "file": "media/scene-about.webp",
+      "bytes": 75134,
+      "sha256": "e29cefc9a51a00964b804b56f6b902c8c924ad0e27cb71733a85b3047057a76c"
+    },
+    {
+      "file": "media/scene-community.webp",
+      "bytes": 105320,
+      "sha256": "3d8c5973fbd4b70c47b032b2169018b4257f66debade5444c711286245fe3a54"
+    },
+    {
+      "file": "media/scene-faqs.webp",
+      "bytes": 104720,
+      "sha256": "f4ef3597d9e4ffa87378ae77dd3413e57b621c7cf9ccabd4e9a422ff35f11c34"
+    },
+    {
+      "file": "media/scene-how-it-works.webp",
+      "bytes": 109736,
+      "sha256": "c747c7a83b9800a5e45619594afaf5423f58cb10a501afb5a71ac6e8915b2ecd"
+    },
+    {
+      "file": "references/current-homepage.png",
+      "bytes": 1904016,
+      "sha256": "e6bc1528daeefb315b8595df594859816afe19fb5b3599840f9aafb227c841f8"
+    },
+    {
+      "file": "references/editorial-philosophy.pdf",
+      "bytes": 140532,
+      "sha256": "d63b8d8f4bcf2582a92b43c8797e2910d075ecd86d879900388526d4c166a82c"
+    },
+    {
+      "file": "references/selected-cinematic-ocean-journey.gif",
+      "bytes": 346005,
+      "sha256": "1377238c6de695542e8ddb04de9a0519a19301eaf0832fdd291a580c8a3bb98a"
+    },
+    {
+      "file": "references/selected-how-it-works-transition.gif",
+      "bytes": 445932,
+      "sha256": "d64351f0591c93725c70e8d6f46fa9c24de2f304b409e1eb8b9d601f654671de"
+    },
+    {
+      "file": "references/selected-keyframes/01-journey-frame.png",
+      "bytes": 102696,
+      "sha256": "f158638fb9f8478ed0c87029d7cafef51fa12df46cbf1de352716ae80b4adeb3"
+    },
+    {
+      "file": "references/selected-keyframes/02-journey-frame.png",
+      "bytes": 117232,
+      "sha256": "b3181420775a4e5af51c79ff22b2d489054b90275931bb6e7ca33f4c496b3f8b"
+    },
+    {
+      "file": "references/selected-keyframes/03-journey-frame.png",
+      "bytes": 110201,
+      "sha256": "f7b2cb74c003fbb3f8035885db6d33e72f257b2d467505711cd6fc64fbbb903a"
+    },
+    {
+      "file": "references/selected-keyframes/04-journey-frame.png",
+      "bytes": 111615,
+      "sha256": "fc5e794bdc1b505a7453812d085fea39c99a9d85d956b47596d97c20b8d09325"
+    },
+    {
+      "file": "references/selected-keyframes/05-journey-frame.png",
+      "bytes": 70788,
+      "sha256": "25f9e3e4f92d13b0949241436b8bae4d95c5ec7bf7eb34b41a0cdc99b9b3932b"
+    },
+    {
+      "file": "references/selected-keyframes/06-journey-frame.png",
+      "bytes": 68979,
+      "sha256": "fb1462ca6b7822905b421ac2616e8bf56579f1294f8b24b00aaa6be293cbf7fe"
+    },
+    {
+      "file": "references/selected-section-storyboard.gif",
+      "bytes": 496937,
+      "sha256": "5f2efb5900bd255a48aa86ebfea4a8ecc10135d73306ebe37344e16287af53c6"
+    },
+    {
+      "file": "references/selected-six-keyframes-contact-sheet.jpg",
+      "bytes": 267721,
+      "sha256": "4e22cba4cf2d9eed63f9bf748fe7ca0bf5ce2f4ffbecaeaa26580d67b05fa890"
+    }
+  ]
+}
