@@ -67,6 +67,12 @@ function StepIcon({ type }) {
   return <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M13 11h30v24l-13 13H13Z" /><path d="M21 20h14M21 27h10M39 35l8-8 6 6-14 14-8 2 2-8Z" /></svg>
 }
 
+function CommunityIcon({ type }) {
+  if (type === 'stories') return <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 14h34v36H12zM18 20h22v6H18zM18 32h9v11h-9zM31 32h9M31 38h9M8 19H5v36h36v-3" /></svg>
+  if (type === 'perspective') return <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="33" r="21" /><path d="m43 21-8 17-17 8 8-17 17-8Z" /><path d="m26 29 9 9M32 12V7M47 18l4-4" /></svg>
+  return <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 53 13 35C2 24 18 7 32 21 46 7 62 24 51 35L32 53Z" /><path d="M21 24h8l4-4 5 6h7" /></svg>
+}
+
 function Brand() {
   return <span className="brand-word" aria-label="ALBi"><span className="brand-heavy">ALB</span>i<span className="brand-cursor" /></span>
 }
@@ -284,10 +290,31 @@ function App() {
           </div>
         </section>
 
-        <section className="ocean-section community-section" id="community" aria-labelledby="community-title">
+        <section className="ocean-section community-section" id="community" aria-label="Community">
           <SceneLayers type="community" />
-          <div className="section-inner">
-            <div className="section-heading split-heading" data-reveal><div className="section-title-block"><p className="eyebrow">Community</p><h2 id="community-title">There's more to every story.</h2></div><div className="section-intro-copy"><p>A request for help is only part of someone's story. So is a news headline. ALBi looks beyond the surface—to real people, everyday needs, and meaningful developments that deserve attention, even when circumstances are difficult.</p></div></div>
+          <div className="community-desktop-inner">
+            <div className="community-desktop-heading" data-reveal><p className="eyebrow">Community</p><h2>There’s more<br />to every story.</h2></div>
+            <p className="community-desktop-intro" data-reveal>A request for help is only one part of someone’s story. So is a news headline.<br />ALBi looks beyond the surface—to real people, everyday needs, and meaningful<br />developments that deserve attention, even when circumstances are difficult.</p>
+            <svg className="community-wave" viewBox="0 0 1672 250" preserveAspectRatio="none" aria-hidden="true">
+              <defs><filter id="community-wave-glow" x="-10%" y="-80%" width="120%" height="260%"><feGaussianBlur stdDeviation="8" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter></defs>
+              <path d="M-35 115 C105 100 190 18 360 24 C520 30 650 155 850 145 C1020 135 1160 50 1350 61 C1500 70 1580 145 1710 116" />
+              <svg className="community-wave-marker" x="338" y="2" width="44" height="44" viewBox="0 0 44 44"><circle className="marker-halo" cx="22" cy="22" r="21" /><circle className="marker-ring" cx="22" cy="22" r="13" /><circle className="marker-center" cx="22" cy="22" r="6" /></svg>
+              <svg className="community-wave-marker" x="828" y="123" width="44" height="44" viewBox="0 0 44 44"><circle className="marker-halo" cx="22" cy="22" r="21" /><circle className="marker-ring" cx="22" cy="22" r="13" /><circle className="marker-center" cx="22" cy="22" r="6" /></svg>
+              <svg className="community-wave-marker" x="1328" y="39" width="44" height="44" viewBox="0 0 44 44"><circle className="marker-halo" cx="22" cy="22" r="21" /><circle className="marker-ring" cx="22" cy="22" r="13" /><circle className="marker-center" cx="22" cy="22" r="6" /></svg>
+            </svg>
+            <div className="community-desktop-card community-card-needs" data-reveal>
+              <span className="community-card-icon"><CommunityIcon type="needs" /></span><span className="community-card-divider" /><div><h3>Real People. Real Needs.</h3><p>Support real people by helping with<br />the specific everyday items they need.</p></div>
+            </div>
+            <div className="community-desktop-card community-card-stories" data-reveal style={{ '--delay': '100ms' }}>
+              <span className="community-card-icon"><CommunityIcon type="stories" /></span><span className="community-card-divider" /><div><h3>Stories Worth Noticing.</h3><p>Explore genuine acts of kindness,<br />cooperation, recovery, and progress<br />from the community.</p></div>
+            </div>
+            <div className="community-desktop-card community-card-perspective" data-reveal style={{ '--delay': '200ms' }}>
+              <span className="community-card-icon"><CommunityIcon type="perspective" /></span><span className="community-card-divider" /><div><h3>A Different Perspective.</h3><p>See what happened from fresh<br />angles and consider the fuller<br />picture.</p></div>
+            </div>
+            <div className="community-desktop-closing" data-reveal><p>The good doesn’t have to be exaggerated to matter.</p><a className="action-button action-primary compact-action" href="#get-started" onClick={handlePlaceholderAction}>Get Started</a></div>
+          </div>
+          <div className="section-inner community-mobile-inner">
+            <div className="section-heading split-heading" data-reveal><div className="section-title-block"><p className="eyebrow">Community</p><h2>There's more to every story.</h2></div><div className="section-intro-copy"><p>A request for help is only part of someone's story. So is a news headline. ALBi looks beyond the surface—to real people, everyday needs, and meaningful developments that deserve attention, even when circumstances are difficult.</p></div></div>
             <div className="story-grid">{communityCards.map((card, index) => <article className="story-card" data-reveal style={{ '--delay': `${index * 100}ms` }} key={card.title}><span className="card-number">0{index + 1}</span><h3>{card.title}</h3><p>{card.description}</p></article>)}</div>
             <div className="section-closing" data-reveal><p>The good doesn't have to be exaggerated to matter.</p><a className="action-button action-primary compact-action" href="#get-started" onClick={handlePlaceholderAction}>Get Started</a></div>
           </div>
